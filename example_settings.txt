@@ -1,0 +1,1 @@
+python bad_scanner.py PoliceReport.pdf Scanned_PoliceReport.pdf --blur-radius 3.25 --dust-density 1.0 --dust-min-radius 2 --dust-max-radius 7 --dust-alpha-min 100 --dust-alpha-max 255 --scratch-count 4 --scratch-line-width-min 1 --scratch-line-width-max 3 --scratch-alpha-min 150 --scratch-alpha-max 255 --contrast 1.5 --sharpness .3 --rotate 2 --brightness 1.1
