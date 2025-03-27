@@ -13,7 +13,7 @@ A Python tool that simulates a poor-quality scanner by applying various visual e
 - Supports batch processing of PDF files
 - Highly configurable parameters for fine-tuning the effects
 
-
+## Project Structure
 ```bash
 bad_scanner
 │   .gitignore
@@ -21,12 +21,12 @@ bad_scanner
 │   pyproject.toml
 │   README.md
 │   uv.lock
-|   CONTRIBUTING.md
-|   LICENSE
-|
+│   CONTRIBUTING.md
+│   LICENSE
+│
 ├───data
-│    |    PoliceReport.pdf
-│    |    PoliceReport_modified.pdf
+│    │    PoliceReport.pdf
+│    │    PoliceReport_modified.pdf
 │
 ├───src
 │   │   __init__.py
@@ -38,24 +38,50 @@ bad_scanner
 │       
 │
 └───tests
-    |   __init__.py
+    │   __init__.py
     │   test_cli.py
 ```
 
 ## Installation
+This section depends on [uv](https://docs.astral.sh/uv/), a new package manager written in Rust. Installing uv is easy, see the [uv installation guide](https://docs.astral.sh/uv/getting-started/installation/#installing-uv).
 
-1. Clone this repository:
+### 1. Clone repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/LucidTruthTechnologies/bad_scanner.git
+```
+```bash
 cd bad_scanner
 ```
+### 2. Create virtual environment and install dependencies in one command:
+```bash
+uv run bad-scanner --help
+```
 
+## [Optional] Installation for devs:
+  ### 1. Create virtual environment:
+  ```bash
+  uv venv
+  ```
+  ### 2. Install dependencies specified in pyproject.toml:
+  ```bash
+  uv install
+  ```
+  Or install specific versions specified in uv.lock:
+  ```bash
+  uv sync
+  ```
+  ### 3. Install package in editable mode:
+  ```bash
+  uv pip install -e .
+  ```
+  ### 4. Confirm Functionality
+  ```bash
+  pytest
+  ```
+  
 ## Usage
 
 ### Basic Usage
-```bash
-bad-scanner --help
-```
 
 ```bash
 bad-scanner input.pdf output.pdf
