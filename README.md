@@ -42,14 +42,6 @@ bad_scanner
     │   test_cli.py
 ```
 
-## Prerequisites
-
-- Python 3.x
-- Poppler (required for PDF processing)
-  - Windows: Download and install from [poppler releases](http://blog.alivate.com.au/poppler-windows/)
-  - Linux: `sudo apt-get install poppler-utils`
-  - macOS: `brew install poppler`
-
 ## Installation
 
 1. Clone this repository:
@@ -58,29 +50,21 @@ git clone <repository-url>
 cd bad_scanner
 ```
 
-2. Create and activate a virtual environment:
-```bash
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-```
-
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
 ## Usage
 
 ### Basic Usage
+```bash
+bad-scanner --help
+```
 
 ```bash
-python bad_scanner.py input.pdf output.pdf
+bad-scanner input.pdf output.pdf
 ```
 
 ### Advanced Options
 
 ```bash
-python bad_scanner.py input.pdf output.pdf \
+bad-scanner input.pdf output.pdf
     --blur-radius 2.0 \
     --dust-density 1.0 \
     --dust-min-radius 1 \
@@ -97,14 +81,6 @@ python bad_scanner.py input.pdf output.pdf \
     --brightness 1.0 \
     --rotate 0.0 \
     --seed 42
-```
-
-### Batch Processing
-
-Use the `run_batch.sh` script to process multiple PDF files:
-
-```bash
-./run_batch.sh input_directory output_directory
 ```
 
 ## Parameters
@@ -130,16 +106,16 @@ Use the `run_batch.sh` script to process multiple PDF files:
 
 ### Basic Example
 ```bash
-python bad_scanner.py PoliceReport.pdf Scanned_PoliceReport.pdf
+bad-scanner PoliceReport.pdf Scanned_PoliceReport.pdf
 ```
 
 ### Heavy Degradation Example
 ```bash
-python bad_scanner.py input.pdf output.pdf \
-    --blur-radius 3.0 \
-    --dust-density 2.0 \
-    --scratch-count 5 \
-    --contrast 0.8 \
+bad-scanner input.pdf output.pdf
+    --blur-radius 3.0
+    --dust-density 2.0
+    --scratch-count 5
+    --contrast 0.8
     --brightness 0.9
 ```
 
