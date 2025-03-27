@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bad-scanner"
+version = "0.1.0"
+description = "A Python tool that simulates poor-quality scanning effects on PDFs."
+readme = "README.md"
+requires-python = ">=3.12"
+license = {file = "bad_scanner/LICENSE"}
+authors = [
+    {name = "Kenneth G Hartman Consulting Services, LLC", email = "info@lucidtruth.tech"}
+]
+dependencies = [
+    "click>=8.1.8",
+    "pdf2image>=1.17.0",
+    "pillow>=11.1.0",
+    "pytest>=8.3.5",
+]
+
+[project.scripts]
+bad-scanner = "cli.bad_scanner_cli:bad_scanner_cli"
+
+[project.urls]
+Repository = "https://github.com/LucidTruthTechnologies/bad_scanner"
+Documentation = "https://github.com/LucidTruthTechnologies/bad_scanner/blob/master/README.md"
+"Bug Tracker" = "https://github.com/LucidTruthTechnologies/bad_scanner/issues"
