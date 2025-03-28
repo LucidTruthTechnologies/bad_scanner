@@ -2,6 +2,7 @@
 import random
 from pdf2image import convert_from_path
 from PIL import Image, ImageFilter, ImageDraw, ImageEnhance
+from pathlib import Path
 
 # --------- Overlay Suite ---------
 
@@ -61,7 +62,7 @@ def generate_overlay(width, height,
     return overlay
 
 
-# --------- Helper Functions ---------
+# --------- Effects ---------
 
 def apply_basic_enhancements(page, blur_radius, contrast, sharpness):
     """Apply basic image enhancements: blur, contrast, and sharpness."""
@@ -110,6 +111,8 @@ def apply_scanner_effects(image, blur_radius, dust_density, dust_min_radius, dus
     combined = Image.alpha_composite(image.convert("RGBA"), overlay_blurred)
     return combined.convert("RGB")
 
+
+# --------- Utility Functions ---------
 
 def set_random_seed(seed):
     """
@@ -186,6 +189,64 @@ def process_page(page, idx, total_pages, blur_radius, contrast, sharpness, rotat
     
     return final_image
 
+
+def process_dir(input_dir=r"data"):
+    """
+    Process all PDF files in the specified directory by applying random scanning effects.
+    This function iterates through all PDF files in the input directory, applies various
+    random effects (blur, dust, scratches, contrast adjustments, etc.) to simulate a
+    scanned document appearance, and saves the processed files to an 'output' directory.
+    Parameters
+    ----------
+    input_dir : Path, optional
+        Directory containing PDF files to process. Defaults to 'data' directory.
+    Notes
+    -----
+    - Random effects include: blur, dust particles, scratches, contrast, sharpness, 
+      brightness, and slight rotation.
+    - Processed files are saved with '_scan' appended to the original filename.
+    - The output directory is created if it doesn't exist.
+    """
+    input_dir = Path(r'data') # convert to pathlib Path object for cross-platform compatibility
+
+    blur = random.uniform(1.0, 3.0)
+    dust_density = random.uniform(0.5, 2.0)
+    dust_radius_min = random.randint(1, 3)
+    dust_radius_max = random.randint(4, 8)
+    dust_alpha_min = random.randint(20, 40)
+    dust_alpha_max = random.randint(80, 120)
+    scratch_count = random.randint(2, 5)
+    contrast = random.uniform(0.8, 1.2)
+    sharpness = random.uniform(0.8, 1.2)
+    brightness = random.uniform(0.9, 1.1)
+    rotate = random.uniform(-2.0, 2.0)
+
+    if input_dir.is_dir():
+        for file in input_dir.iterdir():
+            if file.suffix.lower() == ".pdf":
+                print(f"Processing file: {file.name}")
+                output_dir = Path("output")
+                output_dir.mkdir(exist_ok=True)
+                output_file = output_dir / f"{file.stem}_scan{file.suffix}"
+                
+                # Apply random effects to each PDF file
+                main(file, output_file, 
+                     blur_radius=blur,
+                     dust_density=dust_density,
+                     dust_min_radius=dust_radius_min,
+                     dust_max_radius=dust_radius_max,
+                     dust_alpha_min=dust_alpha_min,
+                     dust_alpha_max=dust_alpha_max,
+                     scratch_count=scratch_count,
+                     contrast=contrast,
+                     sharpness=sharpness,
+                     brightness=brightness,
+                     rotate=rotate)
+                
+    else:
+        print(f"{input_dir} is not a directory. Please provide a valid directory path.")
+
+
 # --------- Main ----------
 
 def main(input_pdf, output_pdf, 
@@ -256,7 +317,12 @@ def main(input_pdf, output_pdf,
 
 
 if __name__ == "__main__":
-    # Example usage - replace with your own paths
-    input_file = r"data\PoliceReport.pdf"
-    output_file = r"data\PoliceReport_modified.pdf"
-    main(input_file, output_file)
+    # Examples:
+    # One File (Replace input_file and output_file with your own paths)
+    # input_file = r"data\PoliceReport.pdf"
+    # output_file = r"output\PoliceReport_scan.pdf"
+    # main(input_file, output_file)
+
+    # Directory of PDFs:
+    # randomly assigns effects to each file in the directory
+    process_dir(input_dir=r"data") # rawstring (r"") recommended for input_dir

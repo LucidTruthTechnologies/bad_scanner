@@ -48,3 +48,6 @@ scans/
 
 # Notes directory
 notes/
+
+# Output directory
+output/
